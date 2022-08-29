@@ -4,4 +4,5 @@ import com.example.messagingapp.entity.Greeting;
 
 public interface IGreetingService {
     public Greeting greetingMessage();
+
 }

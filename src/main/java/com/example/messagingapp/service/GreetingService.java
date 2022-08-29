@@ -6,12 +6,25 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
-public class GreetingService {
+public class GreetingService implements IGreetingService{
     private static final String template = "Hello world";
     private final AtomicLong counter = new AtomicLong();
 
+    @Override
     public Greeting greetingMessage() {
 
         return new Greeting(counter.incrementAndGet(), String.format(template));
+    }
+
+    public String greetingWithUser(String firstName, String lastName){
+        if(firstName.isEmpty() && lastName.isEmpty()){
+            return template;
+        } else if (firstName.equals("") && !lastName.equals("")) {
+            return "Hello " + lastName;
+        }
+        else if (!firstName.equals("") && lastName.equals("")) {
+            return "Hello " + firstName;
+        }
+        return "Welcome " + firstName +" "+lastName;
     }
 }

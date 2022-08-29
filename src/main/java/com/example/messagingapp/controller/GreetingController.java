@@ -1,6 +1,7 @@
 package com.example.messagingapp.controller;
 
 import com.example.messagingapp.entity.Greeting;
+import com.example.messagingapp.service.GreetingService;
 import com.example.messagingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,16 +10,16 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 @RequestMapping("/greeting")
-public class GreetingController {
+public class GreetingController{
+
+    @Autowired
+    IGreetingService greetingService;
+
+    @Autowired
+    GreetingService services;
+
     private static final String template="Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
-
-    public IGreetingService greetingService = new IGreetingService() {
-        @Override
-        public Greeting greetingMessage() {
-            return null;
-        }
-    };
 
 
     @GetMapping(value = {"","/","/home"})
@@ -32,5 +33,11 @@ public class GreetingController {
     @GetMapping("/service")
     public Greeting greeting() {
         return greetingService.greetingMessage();
+    }
+
+    @GetMapping("/user")
+    public String greetMessageWithUser(@RequestParam(value = "firstName", defaultValue = "") String firstName,
+                                       @RequestParam(value = "lastName", defaultValue = "") String lastName){
+        return services.greetingWithUser(firstName, lastName);
     }
 }
