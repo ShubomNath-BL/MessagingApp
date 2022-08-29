@@ -5,6 +5,7 @@ import com.example.messagingapp.repo.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -41,5 +42,10 @@ public class GreetingService implements IGreetingService{
 
     public Optional<Greeting> findById(long id) {
         return repository.findById(id);
+    }
+
+    public List<Greeting> recieveData() {
+        List<Greeting> getList = repository.findAll();
+        return getList;
     }
 }
