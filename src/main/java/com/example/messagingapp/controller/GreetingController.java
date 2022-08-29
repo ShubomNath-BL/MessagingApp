@@ -6,6 +6,7 @@ import com.example.messagingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
@@ -44,5 +45,9 @@ public class GreetingController{
     public Greeting saveGreeting(@RequestBody Greeting greetings){
         services.greetMessage(greetings);
         return greetings;
+    }
+    @GetMapping("/greetId/{id}")
+    public Optional<Greeting> greetById(@PathVariable long id){
+        return services.findById(id);
     }
 }
