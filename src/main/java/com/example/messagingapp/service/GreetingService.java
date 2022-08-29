@@ -1,12 +1,17 @@
 package com.example.messagingapp.service;
 
 import com.example.messagingapp.entity.Greeting;
+import com.example.messagingapp.repo.Repo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class GreetingService implements IGreetingService{
+
+    @Autowired
+    Repo repository;
     private static final String template = "Hello world";
     private final AtomicLong counter = new AtomicLong();
 
@@ -26,5 +31,10 @@ public class GreetingService implements IGreetingService{
             return "Hello " + firstName;
         }
         return "Welcome " + firstName +" "+lastName;
+    }
+
+    public Greeting greetMessage(Greeting greetings) {
+        repository.save(greetings);
+        return greetings;
     }
 }
