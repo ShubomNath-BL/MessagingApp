@@ -48,4 +48,9 @@ public class GreetingService implements IGreetingService{
         List<Greeting> getList = repository.findAll();
         return getList;
     }
+
+    public Greeting deleteDataById(long id) {
+        repository.deleteById(id);
+        return null;
+    }
 }

@@ -57,4 +57,9 @@ public class GreetingController{
         List<Greeting> response = services.recieveData();
         return response;
     }
+
+    @GetMapping("/delete/{id}")
+    public Greeting deleteDataFromId(@PathVariable long id){
+        return services.deleteDataById(id);
+    }
 }
